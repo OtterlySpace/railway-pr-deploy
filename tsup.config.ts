@@ -10,5 +10,8 @@ export default defineConfig({
 	treeshake: true,
 	sourcemap: false,
 	target: "esnext",
-	outDir: "dist"
+	outDir: "dist",
+	outExtension: () => ({
+		js: `.cjs`
+	})
 })
