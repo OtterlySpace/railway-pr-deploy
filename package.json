@@ -1,26 +1,48 @@
 {
   "name": "railway-pr-deploy",
-  "version": "1.0.0",
   "description": "Github Action to deploy railway prs with dynamic env variables",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "version": "3.0.0",
+  "license": "MIT",
+  "author": "Otterly Space",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Faolain/railway-pr-deploy.git"
+    "url": "git+https://github.com/OtterlySpace/railway-pr-deploy.git"
   },
-  "author": "Faolain",
-  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Faolain/railway-pr-deploy/issues"
+    "url": "https://github.com/OtterlySpace/railway-pr-deploy/issues"
   },
-  "homepage": "https://github.com/Faolain/railway-pr-deploy#readme",
-  "dependencies": {
-    "@actions/core": "^1.10.0",
-    "@actions/github": "^5.1.1",
-    "@vercel/ncc": "^0.38.0",
-    "graphql": "^16.8.0",
-    "graphql-request": "^6.1.0"
+  "homepage": "https://github.com/OtterlySpace/railway-pr-deploy#readme",
+  "scripts": {
+    "start": "node dist/main",
+    "start:dev": "tsup --watch",
+    "typecheck": "tsc",
+    "clean": "rm -rf dist node_modules",
+    "build": "tsup",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write './src/**/*'"
+  },
+  "private": true,
+  "devDependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "@types/eslint": "^8.56.10",
+    "@types/node": "^22.12.0",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "@typescript-eslint/parser": "^8.22.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-import-resolver-typescript": "^3.7.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "graphql": "^16.10.0",
+    "graphql-request": "^7.1.2",
+    "prettier": "^3.4.2",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3",
+    "zod": "^3.24.1"
+  },
+  "ca8aMetadata": {
+    "initVersion": "1.5.0"
   }
 }
