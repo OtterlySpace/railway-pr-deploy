@@ -22,17 +22,25 @@ const BRANCH_NAME = context.ref.replace("refs/heads/", "")
 
 // #region Railway GraphQL Client
 
-async function railwayGraphQLRequest<T>(query: string, variables: Record<string, unknown>) {
+async function railwayGraphQLRequest<T>(query: string, variables: Record<string, unknown>, timeout = 60000) {
+	const controller = new AbortController()
+
+	const timerId = setTimeout(() => {
+		controller.abort()
+	}, timeout)
 	const client = new GraphQLClient(ENDPOINT, {
 		headers: {
 			Authorization: `Bearer ${RAILWAY_API_TOKEN}`
-		}
+		},
+		signal: controller.signal
 	})
 	try {
 		return await client.request<T>({ document: query, variables })
 	} catch (error) {
 		core.setFailed(`Action failed with error: ${error}`)
 		throw error
+	} finally {
+		clearTimeout(timerId)
 	}
 }
 
@@ -147,7 +155,7 @@ async function createEnvironment(sourceEnvironmentId: string) {
 		}
 		return await railwayGraphQLRequest<{
 			environmentCreate: Environment
-		}>(query, variables)
+		}>(query, variables, 5 * 60 * 1000) // 5 minutes timeout
 	} catch (error) {
 		core.setFailed(`Action failed with error: ${error}`)
 		throw error
