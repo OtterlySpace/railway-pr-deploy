@@ -36,4 +36,4 @@ outputs:
         description: "The domain of the deployed PR environment"
 runs:
     using: "node20"
-    main: "dist/main.cjs"
+    main: "dist/index.cjs"
